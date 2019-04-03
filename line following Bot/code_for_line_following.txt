@@ -1,0 +1,60 @@
+#define motorpin1 2
+#define motorpin2 4
+#define E1 3
+#define E2 5
+#define sens1 A0
+#define sens2 A2
+
+void setup() {
+  // initialize serial communication at 9600 bits per second:
+  Serial.begin(9600);
+  pinMode(motorpin1,OUTPUT);
+  pinMode(motorpin2,OUTPUT);
+  pinMode(E1,OUTPUT);
+  pinMode(E2,OUTPUT);
+  pinMode(sens1,INPUT);
+  pinMode(sens2,INPUT);
+
+  //digitalWrite(motorpin2,HIGH);
+  //digitalWrite(motorpin1,HIGH);
+  analogWrite(E1,255);
+  analogWrite(E2,255);
+
+}
+
+// the loop routine runs over and over again forever:
+void loop() {
+  // read the input on analog pin 0:
+  //digitalWrite(motorpin2,HIGH);
+  //digitalWrite(motorpin1,HIGH);
+  //
+  int sensorValue1 = analogRead(sens1);
+  int sensorValue2 = analogRead(sens2);
+  // print out the value you read:
+  Serial.println(sensorValue1);
+  Serial.println(sensorValue2);
+  if(sensorValue1 < 50 && sensorValue2 > 500)
+  {
+    digitalWrite(motorpin1,LOW );
+    digitalWrite(motorpin2,HIGH );
+  }
+  else if( sensorValue1 > 500 && sensorValue2 < 50 )
+  {
+    digitalWrite(motorpin1,HIGH);
+    digitalWrite(motorpin2,LOW);
+  }
+  else if(sensorValue1 > 500 && sensorValue2 > 500)
+  {
+    digitalWrite(motorpin1,HIGH );
+    digitalWrite(motorpin2,HIGH );
+  }
+  else
+  {
+    digitalWrite(motorpin1,LOW);
+    digitalWrite(motorpin2,LOW );
+  }
+
+
+
+  //delay(1000);        // delay in between reads for stability
+}
